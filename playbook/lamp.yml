@@ -5,48 +5,50 @@
     - name: install Apache
       yum: name=httpd state=latest
 
-    - name: enable and start service httpd
-      systemd: name=httpd state=started enable=True
-
-    - name: install php
-      yum: name=" {{ item }} " state: letest
-      with_items: 
+    - name: enbale & start service httpd
+      systemd: name=httpd state=started enabled=true
+    
+    - name: install php & php modules
+      yum: name="{{ item }}" state=latest
+      with_items:
         - php
         - php-mbstring
         - php-mysql
         - php-intl
         - php-gd
+    
+    - name: restart service httpd
+      systemd: name=httpd state=restarted
 
-    - name: apache restart
-      systemd: name=httpd start=restarted
-
-    - name: install mariaDB
-      yum: name="{{ item }}" state: present
+    - name: install Mariadb
+      yum: name="{{ item }}" state=present
       with_items:
         - mariadb
         - mariadb-server
 
-    - name: mariadb start
-      systemd: name=mariadb state=started enable=True
+    - name: enbale & start service mariadb
+      systemd: name=mariadb state=started enabled=true
 
-    - name: configure mariadb
-      shell: 
+    - name: Configure Mariadb
+      shell:
         mysqladmin -u root password 2anetwork;
-        mysql -u root password 2anetwork -e 'create database wp;';
-        mysql -u root password 2anetwork -e 'grant all privileges
-        on wp.* to "wpadmin"@"localhost" identified
-        by "password";';
-        mysql -u root password 2anetwork -e 'flush privileges;';
-
+        mysql -u root -p2anetwork -e 'create database wp;';
+        mysql -u root -p2anetwork -e 'grant all privileges
+          on wp.* to "wpadmin"@"localhost" identified
+          by "password";';
+        mysql -u root -p2anetwork -e 'flush privileges;';
+    
     - name: install wordpress
       get_url: 
         url: https://ja.wordpress.org/wordpress-4.9.5-ja.zip
         dest: /tmp
 
-    - name: install unzip
-      yum: name=unzip state=letest
 
-    - name: Extract wordpress
-        unarchive:
-          src: /tmp/wordpress-4.9.5-ja.zip
-          dest: /var/www/html
+    - name: install unzip
+      yum: name=unzip state=latest
+
+    - name: unarchive wordpress
+      unarchive:
+        src: /tmp/wordpress-4.9.5-ja.zip
+        dest: /var/www/html
+    
