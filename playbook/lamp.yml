@@ -38,11 +38,10 @@
           by "password";';
         mysql -u root -p2anetwork -e 'flush privileges;';
     
-    - name: install wordpress
-      get_url: 
+    - name: download Wordpress
+      get_url:
         url: https://ja.wordpress.org/wordpress-4.9.5-ja.zip
         dest: /tmp
-
 
     - name: install unzip
       yum: name=unzip state=latest
