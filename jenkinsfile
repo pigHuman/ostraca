@@ -7,6 +7,10 @@ node {
         sh "echo 'Hello Jenkins from Jenkinsfile'"
     }
 
+    stage('second job'){
+        sh "ls -l"
+    }
+
     stage('third job'){
         sh "echo test"
     }
