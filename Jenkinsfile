@@ -9,7 +9,7 @@ node{
     }
 
     stage('build & test'){
-        sh "Building code and test.''"
+        sh "Building code and test"
     }
 
     stage ('Confirm current green server'){
