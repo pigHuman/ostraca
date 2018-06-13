@@ -26,7 +26,6 @@ node{
                 cgreen_name = "2anet_server2"
             }
         }
-
         sh "echo ${cgreen_name}"
     }
 
