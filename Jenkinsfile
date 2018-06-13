@@ -1,4 +1,4 @@
-def jenkins_path = "var/lib/jenkins"
+def jenkins_path = "/var/lib/jenkins"
 def tf_path = "${jenkins_path}/terraform/build"
 def ansible_path = "${jenkins_path}/ansible"
 def terraform = "/usr/local/bin/terraform"
