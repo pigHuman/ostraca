@@ -33,14 +33,14 @@ node{
     stage('Destroy of the current green server'){
         //現在のgreenサーバを破棄
         dir("${tf_path}"){
-            sh "${terraform} destroy -auto-approve -target=aws_instance.${cgreen_name} ./stage1"
+            sh "${terraform} destroy -auto-approve -target=aws_instance.${cgreen_name} ../stage1"
         }
     }
 
     stage('create mew blue server instance'){
         //新しいblueサーバのインスタンスを作成
         dir("${tf_path}"){
-            sh "${terraform} apply -auto-approve ./stage1"
+            sh "${terraform} apply -auto-approve ../stage1"
         }
     }
 
