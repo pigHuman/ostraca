@@ -52,7 +52,7 @@ node{
         
         }
         sh "echo ${ip}"
-        dir("${ansible_path"){
+        dir("${ansible_path}"){
 
         }
     }
