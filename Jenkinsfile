@@ -47,10 +47,10 @@ node{
         //新しいblueサーバを作成
         dir("${tf_path}"){
             option = "\$3"
-            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | grep ^public_ip | awk '{print ${option}}'"
+            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep ^public_ip | awk '{print ${option}}'"
         
         }
-        sh "echo ${ip}"
+        //sh "echo ${ip}"
         // dir("${ansible_path}"){
 
         // }
