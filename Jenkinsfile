@@ -15,10 +15,8 @@ node{
     stage ('Confirm current green server'){
         //現在のサーバーの状況を取得
         dir("${tf_path}"){
-            option = "\$3"\
-            id = sh returnStdout: true, script: "${terraform} stage show \
-            aws_lb_target_group_attachment.greenment.green_attach |\
-                grep target_id | awk'{print ${option}}'"
+            option = "\$3"
+            id = sh returnStdout: true, script: "${terraform} stage show aws_lb_target_group_attachment.green_attach | grep target_id | awk'{print ${option}}'"
         }
         sh "echo ${id}"
     }
