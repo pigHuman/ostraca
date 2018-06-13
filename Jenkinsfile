@@ -25,9 +25,7 @@ node{
             }catch(exception){
                 cgreen_name = "2anet_server2"
             }
-            sh "echo ${result}"
         }
-
 
         sh "echo ${cgreen_name}"
     }
