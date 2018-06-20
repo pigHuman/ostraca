@@ -54,6 +54,7 @@ node{
         dir("${ansible_path}"){
             sh "echo '[blue_server]' > ./hosts"
             sh "echo ${ip} >> ./hosts"
+            sh "sleep 10"
             sh "ansible-playbook -i ./hosts --private-key=./2anet.pem ./ostraca.yml"
         }
     }
