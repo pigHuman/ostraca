@@ -16,7 +16,7 @@ node{
         //現在のサーバーの状況を取得
         dir("${tf_path}"){
             option = "\$3"
-            id = sh returnStdout: true, script: "${terraform} state show aws_lb_target_group_attachment.green_attach | grep target_id | awk '{print ${option}}'"
+            id = sh returnStdout: true, script: "${terraform} state show aws_lb_target_group_attachment.green_attach | grep target_id | awk '{print ${option}}' | tr -d '\n'"
         
             try{
                 result = sh returnStdout: true, script :"${terraform} state show aws_instance.2anet_server1 | grep ${id}"
@@ -47,7 +47,7 @@ node{
         //新しいblueサーバを作成
         dir("${tf_path}"){
             option = "\$3"
-            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep ^public_ip | awk '{print ${option}}' | tr -d '\n'"
+            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep ^public_ip | awk '{print ${option}}'"
         
         }
         sh "echo ${ip}"
