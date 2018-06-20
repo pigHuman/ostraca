@@ -58,6 +58,10 @@ node{
         }
     }
 
+    stage('Execute test for new blue server'){
+        sh "echo 'server test'"
+    }
+
     stage('swich the blue server'){
         //現blueサーバと新blueサーバのTargetGroupを切り替える
     }
