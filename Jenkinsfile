@@ -49,10 +49,10 @@ node{
             option = "\$3"
             id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep '^public_ip' | awk '{print ${option}}' | tr -d '\n'"
         }
-        sh "echo ${id}"
+        sh "echo ${ip}"
         dir("${ansible_path}"){
             sh "echo '[blue_server]' > ./hosts"
-            sh "echo ${id} >> ./hosts"
+            sh "echo ${ip} >> ./hosts"
             sh "sleep 10"
             sh "ansible-playbook -i ./hosts --private-key=./2anet.pem ./ostraca.yml"
         }
