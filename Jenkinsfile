@@ -54,7 +54,7 @@ node{
             sh "echo '[blue_server]' > ./hosts"
             sh "echo ${ip} >> ./hosts"
             sh "sleep 10"
-            sh "ansible-playbook -i ./hosts --private-key=./2anet.pem ./ostraca.yml"
+            sh "ansible-playbook -i ./hosts --private-key=./2Anet.pem ./ostraca.yml"
         }
     }
 
