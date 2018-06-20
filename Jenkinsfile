@@ -47,7 +47,7 @@ node{
         //新しいblueサーバを作成
         dir("${tf_path}"){
             option = "\$3"
-            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep ^public_ip | awk '{print ${option}}'"
+            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep ^public_ip | awk '{print ${option}}' | tr -d '\n'"
         
         }
         sh "echo ${ip}"
@@ -56,10 +56,6 @@ node{
             sh "echo ${ip} >> ./hosts"
             sh "ansible-playbook -i ./hosts --private-key=./2anet.pem ./ostraca.yml"
         }
-        //sh "echo ${ip}"
-        // dir("${ansible_path}"){
-
-        // }
     }
 
     stage('swich the blue server'){
