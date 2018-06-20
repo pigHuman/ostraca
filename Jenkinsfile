@@ -47,7 +47,7 @@ node{
         //新しいblueサーバを作成
         dir("${tf_path}"){
             option = "\$3"
-            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | egrep '^public_ip' | awk '{print ${option}}' | tr -d '\n'"
+            id = sh returnStdout: true, script: "${terraform} state show aws_instance.${cgreen_name} | grep '^public_ip' | awk '{print ${option}}' | tr -d '\n'"
         }
         sh "echo ${ip}"
         dir("${ansible_path}"){
@@ -64,5 +64,10 @@ node{
 
     stage('swich the blue server'){
         //現blueサーバと新blueサーバのTargetGroupを切り替える
+        dir(${tf_path}){
+            new_green_id = sh returnStdout: true, script: "${terraform} state show aws_id_target_group_attachment.blue_attach | grep target_id | awk '{print ${option}}' | tr -d '\n'"
+            new_blue_id = sh returnStdout: true, script: "${terraform} state show aws_id_target_group_attachment.blue_attach | grep target_id | awk '{print ${option}}' | tr -d '\n'"
+            sh "${terraform} apply -auto-approve -var blue_server_id=${new_blue_id} var green_server_id=${new_green_id} ./stage2"
+        }
     }
 }
